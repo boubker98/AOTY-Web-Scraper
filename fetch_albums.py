@@ -1,11 +1,12 @@
 import time
 from get_data import get_data
 import pandas as pd
-from prefect import task
+from prefect import task, get_run_logger
 
 
 @task(persist_result=False)
 def fetch_albums_data(albums, driver):
+    logger = get_run_logger()
     album_data_list = []
     reviews_list = []
 
@@ -27,7 +28,7 @@ def fetch_albums_data(albums, driver):
             reviews_list.append(pd.DataFrame(reviews))
 
         except Exception as e:
-            print(f"Error processing {album['link']}: {e}")
+            logger.error(f"Error processing {album['link']}: {e}")
 
         finally:
             # Add a delay to avoid overwhelming the server

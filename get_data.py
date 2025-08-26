@@ -1,7 +1,7 @@
 import time
 import pandas as pd
 from bs4 import BeautifulSoup
-from prefect import task
+from prefect import task, get_run_logger
 
 
 @task(retries=3, retry_delay_seconds=3, persist_result=False)
@@ -9,6 +9,7 @@ def get_data(
     album_link,
     driver,
 ):
+    logger = get_run_logger()
     reviews = []
     album_data = []
     try:
@@ -107,10 +108,10 @@ def get_data(
                 }
             )
 
-        print(f"Processed album: {album_title}")
+        logger.info(f"Processed album: {album_title}")
 
     except Exception as e:
-        print(f"Error processing {album_link}: {e}")
+        logger.error(f"Error processing {album_link}: {e}")
     finally:
         time.sleep(2)
         return reviews, album_data

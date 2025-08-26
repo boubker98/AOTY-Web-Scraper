@@ -14,10 +14,3 @@ def get_connection(database_name):
 
 def save_to_table(con, table_name, dataframe):
     con.execute(f"CREATE OR REPLACE TABLE {table_name} AS SELECT * FROM {dataframe}")
-
-
-def setup_logger():
-    logging.basicConfig(
-        level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
-    )
-    return logging.getLogger(__name__)
