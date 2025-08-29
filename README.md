@@ -1,14 +1,16 @@
 # Album Data Scraper
-This project is a web scraping pipeline designed to extract album data and reviews from [Album of the Year](https://www.albumoftheyear.org). The pipeline uses Selenium for dynamic web scraping, BeautifulSoup for HTML parsing, and DuckDB for storing the extracted data.
+This project is a web scraping pipeline designed to extract album data and reviews from [Album of the Year](https://www.albumoftheyear.org). The pipeline uses Selenium for dynamic web scraping, BeautifulSoup for HTML parsing, and DuckDB for storing the extracted data, click for CLI argument handling and Prefect for end-to-end orchestration.
 
 ---
 
 ## Features
-- **Dynamic Web Scraping**: Uses Selenium to handle JavaScript-rendered pages.
-- **Data Extraction**: Extracts album details (title, artist, release date, genres, etc.) and reviews (publication, author, rating, etc.).
-- **Data Storage**: Saves the extracted data to DuckDB and CSV files.
-- **Error Handling**: Implements retries and logging for robust scraping.
-- **Modular Design**: The codebase is organized into reusable modules for better maintainability.
+- **Dynamic Web Scraping**: Handles JavaScript-rendered pages using Selenium.
+- **Comprehensive Data Extraction**: Captures album details (title, artist, release date, genres, etc.) and reviews (publication, author, rating, etc.).
+- **Flexible Data Storage**: Saves results in DuckDB and CSV formats.
+- **Robust Error Handling**: Retries, logging, and graceful failure recovery.
+- **Modular Codebase**: Organized into reusable, maintainable modules.
+- **Pipeline Orchestration**: Automate end-to-end workflows by running a local Prefect server and scheduling flows.
+
 
 ---
 ## Installation
@@ -36,11 +38,10 @@ pip install -r requirements.txt
 > Ensure ChromeDriver is installed and added to your PATH.
 ### Usage
 1. Update the configuration in config.py:
-	- Set the `BASE_URL` to the desired starting page.
-	- Adjust `PAGE_COUNT` to specify the number of pages to scrape.
+	- Set the `year` to the desired starting page.
 2. Run the script:
 ```python
-python main.py
+python main.py --year `year you want to scrape albums for`
 ```
 
 Output:
